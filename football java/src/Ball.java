@@ -1,6 +1,10 @@
 package com.game.footballgame;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Ball extends Rectangle{
@@ -35,11 +39,14 @@ public class Ball extends Rectangle{
 	}
 	static final int gamewidth = 1000;
 	static final int gameheight = (int)(gamewidth * (0.5555));
-	public void draw(Graphics g) {
-		g.setColor(Color.white);
-		g.fillOval(x, y, height, width);
-		g.setColor(Color.white);
-		g.drawOval((gamewidth/2)-75,(gameheight/2)-70,150,150);
+	public void draw(Graphics g) throws IOException {
+//		g.setColor(Color.white);
+//		g.fillOval(x, y, height, width);
+//		g.setColor(Color.white);
+//		g.drawOval((gamewidth/2)-75,(gameheight/2)-70,150,150);
+		BufferedImage image = ImageIO.read(new File( "ballimage.png"));
+		g.drawImage(image, x, (gameheight/2)+315, height,width,null);
+
 
 	}
 }

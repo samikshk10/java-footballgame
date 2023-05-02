@@ -2,15 +2,22 @@ package com.game.footballgame;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class GameGUI extends JPanel implements Runnable{
 
-	static final int gamewidth = 1000;
-	static final int gameheight = (int)(gamewidth * (0.5));
-	static final Dimension screensize = new Dimension(gamewidth,gameheight);
-	static final int balldiameter = 20;
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+
+	static final int gamewidth = screenSize.width;
+	static final int gameheight = screenSize.height;
+
+	static final int balldiameter = 40;
 	static final int paddlewidth = 25;
 	static final int paddleheight = 100;
 
@@ -21,9 +28,9 @@ public class GameGUI extends JPanel implements Runnable{
 	GameObject keeper1;
 	GameObject keeper2;
 
-	GameObject leftpanel;
+//	GameObject leftpanel;
 
-	GameObject rightpanel;
+//	GameObject rightpanel;
 
 	GameObject goalpostleft;
 	GameObject goalpostright;
@@ -40,7 +47,7 @@ public class GameGUI extends JPanel implements Runnable{
 
 		this.setFocusable(true);
 		this.addKeyListener(new KeyEventsAll());
-		this.setPreferredSize(screensize);
+		this.setPreferredSize(screenSize);
 
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -58,22 +65,14 @@ public class GameGUI extends JPanel implements Runnable{
 
 	public void newPaddles() {
 
-		keeper1 = new GameObject(0,(gameheight/2)-(paddleheight/2),paddlewidth,paddleheight,1);
-		keeper2 = new GameObject(gamewidth-(paddlewidth+20*2),(gameheight/2)-(paddleheight/2),paddlewidth,paddleheight,2);
+		keeper1 = new GameObject(0,(gameheight/2)+(200),paddlewidth,paddleheight,1);
+		keeper2 = new GameObject(gamewidth-(paddlewidth+20*2),(gameheight/2)+200,paddlewidth,paddleheight,2);
 
-		goalpostleft= new GameObject(0,(gameheight/2)-(paddleheight/2),paddlewidth,paddleheight*2,3);
-		goalpostright= new GameObject(gamewidth-paddlewidth,(gameheight/2)-(paddleheight/2),(paddlewidth*2),paddleheight*2,4);
+		goalpostleft= new GameObject(0,(gameheight/2),paddlewidth*2+100,paddleheight*3,3);
+		goalpostright= new GameObject(gamewidth-(paddlewidth*2+50),(gameheight/2),(paddlewidth*2+100),paddleheight*3,4);
 
-		leftpanel= new GameObject(paddlewidth,0,2,gameheight*2,5);
-		rightpanel= new GameObject(gamewidth-paddlewidth,0,2,gameheight*2,5);
-
-
-
-
-
-
-
-
+//		leftpanel= new GameObject(paddlewidth,0,2,gameheight*2,5);
+//		rightpanel= new GameObject(gamewidth-paddlewidth,0,2,gameheight*2,5);
 
 	}
 
@@ -82,22 +81,30 @@ public class GameGUI extends JPanel implements Runnable{
 		image = createImage(getWidth(),getHeight());
 		graphics = image.getGraphics();
 
-		draw(graphics);
+		try {
+			draw(graphics);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 		g.drawImage(image,0,0,this);
 
 	}
 
-	public void draw(Graphics g) {
-
+	public void draw(Graphics g) throws IOException {
+		BufferedImage images = null;
+		try {
+			images = ImageIO.read(new File( "stadiumimage.png"));
+		g.drawImage(images, 0, 0,gamewidth,gameheight, null);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 		keeper1.draw(g);
 		keeper2.draw(g);
 		goalpostleft.draw(g);
 		goalpostright.draw(g);
-		leftpanel.draw(g);
-		rightpanel.draw(g);
+		//leftpanel.draw(g);
+		//rightpanel.draw(g);
 		ball.draw(g);
-
-
 		score.draw(g);
 		Toolkit.getDefaultToolkit().sync();
 
@@ -123,13 +130,13 @@ public class GameGUI extends JPanel implements Runnable{
 		}
 
 		//bounce ball off paddles
-		if(ball.intersects(keeper1) || ball.intersects(leftpanel)) {
+		if(ball.intersects(keeper1) ) {
 
 			ball.xVelocity = Math.abs(ball.xVelocity);
-			ball.xVelocity=ball.xVelocity+0.05;
+			ball.xVelocity++;
 
 			if(ball.yVelocity>0)
-				ball.yVelocity=ball.yVelocity+0.05;
+				ball.yVelocity++;
 			else
 				ball.yVelocity--;
 
@@ -140,7 +147,7 @@ public class GameGUI extends JPanel implements Runnable{
 
 
 
-		if(ball.intersects(keeper2) || ball.intersects(rightpanel)) {
+		if(ball.intersects(keeper2) ) {
 
 			ball.xVelocity = Math.abs(ball.xVelocity);
 			ball.xVelocity++; //optional for more difficulty

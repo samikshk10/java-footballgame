@@ -18,7 +18,7 @@ public class Score extends Rectangle{
 	public void draw(Graphics g) {
 
 		g.setColor(Color.white);
-		g.drawLine(gamewidth/2, 0, gamewidth/2, gameheight);
+//		g.drawLine(gamewidth/2, 0, gamewidth/2, gameheight);
 
 		g.drawString("SCORE(RACE TO 5)", (gamewidth/2)-70, 20);
 		g.drawString(String.valueOf(player1/10)+String.valueOf(player1%10), (gamewidth/2)-100, 50);
