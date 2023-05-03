@@ -23,13 +23,13 @@ public class GameObject extends Rectangle{
 
 		switch(id) {
 		case 1:
-//			if(e.getKeyCode()==KeyEvent.VK_W) {
-//				setYDirection(-speed);
-//			}
+			if(e.getKeyCode()==KeyEvent.VK_W) {
+				setYDirection(-speed);
+			}
 
-//			if(e.getKeyCode()==KeyEvent.VK_S) {
-//				setYDirection(speed);
-//			}
+			if(e.getKeyCode()==KeyEvent.VK_S) {
+				setYDirection(speed);
+			}
 
 
 			if(e.getKeyCode()==KeyEvent.VK_A){
@@ -62,13 +62,13 @@ public class GameObject extends Rectangle{
 
 		switch(id) {
 		case 1:
-//			if(e.getKeyCode()==KeyEvent.VK_W) {
-//				setYDirection(0);
-//			}
-//
-//			if(e.getKeyCode()==KeyEvent.VK_S) {
-//				setYDirection(0);
-//			}
+			if(e.getKeyCode()==KeyEvent.VK_W) {
+				setYDirection(0);
+			}
+
+			if(e.getKeyCode()==KeyEvent.VK_S) {
+				setYDirection(0);
+			}
 
 
 			if(e.getKeyCode()==KeyEvent.VK_A) {
@@ -114,17 +114,26 @@ public class GameObject extends Rectangle{
 		x= x+xVelocity;
 	}
 
+	public void imageOptimization(int xc ,int yc, String imagename,int widths,int heights,Graphics g){
+		Image image ;
+		image = Toolkit.getDefaultToolkit().getImage(imagename);
+		Graphics2D g2d = (Graphics2D) g;
+		GraphicsConfiguration config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+		Image buffer = config.createCompatibleImage(widths,heights, Transparency.TRANSLUCENT);
+		Graphics2D bufferGraphics = (Graphics2D) buffer.getGraphics();
+		bufferGraphics.drawImage(image, 0, 0, null);
+		g2d.drawImage(buffer, xc, yc, null);
+	}
+
 	public void draw(Graphics g) throws IOException {
 
 		if(id==1) {
-			BufferedImage image = ImageIO.read(new File("carimage1.png"));
-
-			g.drawImage(image, x, y, 100, 50, null);
+		imageOptimization(x,y,"carimage1.png",100,50,g);
 		}
 		else if(id==2) {
-			BufferedImage image = ImageIO.read(new File( "carimage2.png"));
+		imageOptimization(x,y,"carimage2.png",100,50,g);
 
-			g.drawImage(image, x-100, y, 100,50,null);
+
 		} else if (id == 3) {
 			BufferedImage image = ImageIO.read(new File( "goal1.png"));
 

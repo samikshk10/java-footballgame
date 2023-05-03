@@ -45,7 +45,7 @@ public class Ball extends Rectangle{
 //		g.setColor(Color.white);
 //		g.drawOval((gamewidth/2)-75,(gameheight/2)-70,150,150);
 		BufferedImage image = ImageIO.read(new File( "ballimage.png"));
-		g.drawImage(image, x, (gameheight/2)+315, height,width,null);
+		g.drawImage(image, x, 575, height,width,null);
 
 
 	}

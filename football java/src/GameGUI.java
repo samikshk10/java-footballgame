@@ -65,10 +65,10 @@ public class GameGUI extends JPanel implements Runnable{
 
 	public void newPaddles() {
 
-		keeper1 = new GameObject(0,(gameheight/2)+(200),paddlewidth,paddleheight,1);
+		keeper1 = new GameObject(0,575,paddlewidth,paddleheight,1);
 		keeper2 = new GameObject(gamewidth-(paddlewidth+20*2),(gameheight/2)+200,paddlewidth,paddleheight,2);
 
-		goalpostleft= new GameObject(0,(gameheight/2),paddlewidth*2+100,paddleheight*3,3);
+		goalpostleft= new GameObject(0-(paddlewidth+40),(gameheight/2),paddlewidth*2+100,paddleheight*3,3);
 		goalpostright= new GameObject(gamewidth-(paddlewidth*2+50),(gameheight/2),(paddlewidth*2+100),paddleheight*3,4);
 
 //		leftpanel= new GameObject(paddlewidth,0,2,gameheight*2,5);
@@ -120,86 +120,86 @@ public class GameGUI extends JPanel implements Runnable{
 
 	public void checkCollision() {
 
-		//bounce ball off top & bottom window edges
-		if(ball.y <=0) {
-			ball.setYDirection(-ball.yVelocity);
-		}
-
-		if(ball.y >= gameheight-balldiameter) {
-			ball.setYDirection(-ball.yVelocity);
-		}
+//		//bounce ball off top & bottom window edges
+//		if(ball.y <=0) {
+//			ball.setYDirection(-ball.yVelocity);
+//		}
+//
+//		if(ball.y >= gameheight-balldiameter) {
+//			ball.setYDirection(-ball.yVelocity);
+//		}
 
 		//bounce ball off paddles
-		if(ball.intersects(keeper1) ) {
+//		if(keeper1.intersects(ball) ) {
+//
+//			ball.xVelocity = Math.abs(ball.xVelocity);
+//			ball.xVelocity++;
+//
+////			if(ball.yVelocity>0)
+////				ball.yVelocity++;
+////			else
+////				ball.yVelocity--;
+//
+////			ball.setXDirection(ball.xVelocity);
+//		//	ball.setYDirection(ball.yVelocity);
+//
+//		}
 
-			ball.xVelocity = Math.abs(ball.xVelocity);
-			ball.xVelocity++;
-
-			if(ball.yVelocity>0)
-				ball.yVelocity++;
-			else
-				ball.yVelocity--;
-
-			ball.setXDirection(ball.xVelocity);
-			ball.setYDirection(ball.yVelocity);
-
-		}
 
 
-
-		if(ball.intersects(keeper2) ) {
-
-			ball.xVelocity = Math.abs(ball.xVelocity);
-			ball.xVelocity++; //optional for more difficulty
-
-			if(ball.yVelocity>0)
-				ball.yVelocity++; //optional for more difficulty
-
-			else
-				ball.yVelocity--;
-
-			ball.setXDirection(-ball.xVelocity);
-			ball.setYDirection(ball.yVelocity);
-
-		}
+//		if(ball.intersects(keeper2) ) {
+//
+//			ball.xVelocity = Math.abs(ball.xVelocity);
+//			ball.xVelocity++; //optional for more difficulty
+////
+////			if(ball.yVelocity>0)
+////				ball.yVelocity++; //optional for more difficulty
+////
+////			else
+////				ball.yVelocity--;
+//
+//			ball.setXDirection(-ball.xVelocity);
+//			//ball.setYDirection(ball.yVelocity);
+//
+//		}
 
 		//stops paddles at window edges
 
-		if(keeper1.y<=0)
-			keeper1.y=0;
-		if(keeper1.y >= (gameheight-paddleheight))
-			keeper1.y = gameheight-paddleheight;
+//		if(keeper1.y<=0)
+//			keeper1.y=0;
+//		if(keeper1.y >= (gameheight-paddleheight))
+//			keeper1.y = gameheight-paddleheight;
+//
+//		if(keeper1.x<=(goalpostleft.x+paddlewidth*2))
+//			keeper1.x=goalpostleft.x+(paddlewidth*2);
+//
 
-		if(keeper1.x<=(goalpostleft.x+paddlewidth*2))
-			keeper1.x=goalpostleft.x+(paddlewidth*2);
+//		if(keeper1.x >= (gamewidth-paddlewidth))
+//			keeper1.x = gameheight-paddlewidth;
 
+//		if(keeper1.x >= (gamewidth/2-paddlewidth))
+//		{
+//			keeper1.x= gamewidth/2-paddlewidth;
+//		}
 
-		if(keeper1.x >= (gamewidth-paddlewidth))
-			keeper1.x = gameheight-paddlewidth;
-
-		if(keeper1.x >= (gamewidth/2-paddlewidth))
-		{
-			keeper1.x= gamewidth/2-paddlewidth;
-		}
-
-		if(keeper2.x<= (gamewidth/2+paddlewidth/2-10))
-		{
-			keeper2.x= gamewidth/2+paddlewidth/2-10;
-		}
-
-		if(keeper2.x>= goalpostright.x-paddlewidth*2)
-		{
-			keeper2.x= goalpostright.x-paddlewidth*2;
-		}
-
-
-
-
-		if(keeper2.y<=0)
-			keeper2.y=0;
-
-		if(keeper2.y >= (gameheight-paddleheight))
-			keeper2.y = gameheight-paddleheight;
+//		if(keeper2.x<= (gamewidth/2+paddlewidth/2-10))
+//		{
+//			keeper2.x= gamewidth/2+paddlewidth/2-10;
+//		}
+//
+//		if(keeper2.x>= goalpostright.x-paddlewidth*2)
+//		{
+//			keeper2.x= goalpostright.x-paddlewidth*2;
+//		}
+//
+//
+//
+//
+//		if(keeper2.y<=0)
+//			keeper2.y=0;
+//
+//		if(keeper2.y >= (gameheight-paddleheight))
+//			keeper2.y = gameheight-paddleheight;
 
 
 
@@ -220,8 +220,8 @@ public class GameGUI extends JPanel implements Runnable{
 				}
 			newPaddles();
 			newBall();
-			}
 			System.out.println("Player 2 score"+score.player2);
+			}
 
 
 
